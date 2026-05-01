@@ -1,30 +1,31 @@
-﻿% !TEX program = xelatex
+% !TEX program = xelatex
 \documentclass[12pt, a4paper]{article}
 
 % --- 字体与中文支持 ---
 \usepackage[UTF8, heading=true]{ctex}
-\setCJKmainfont[AutoFakeBold=2.5]{KaiTi}
+\setCJKfamilyfont{hei}[AutoFakeBold=2.2]{SimHei}
+\setCJKfamilyfont{kai}[AutoFakeBold=2.2]{KaiTi}
 \ctexset{
     section = {
         name = {第,章},
-        format = \zihao{-2}\bfseries\heiti,
-        beforeskip = 1.5ex plus 0.5ex,
-        afterskip = 1ex plus 0.3ex,
+        format = \zihao{-2}\heiti,
+        beforeskip = 1.8ex plus 0.5ex,
+        afterskip = 1.1ex plus 0.3ex,
     },
     subsection = {
-        format = \zihao{-3}\bfseries\heiti,
-        beforeskip = 1ex plus 0.3ex,
+        format = \zihao{-3}\heiti,
+        beforeskip = 1.2ex plus 0.3ex,
         afterskip = 0.8ex plus 0.2ex,
     },
     subsubsection = {
-        format = \zihao{4}\bfseries\heiti,
+        format = \zihao{4}\heiti,
         beforeskip = 0.8ex plus 0.2ex,
         afterskip = 0.5ex plus 0.1ex,
     }
 }
 
 % --- 页面设置 ---
-\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm, bindingoffset=1cm]{geometry}
+\usepackage[a4paper, top=2.6cm, bottom=2.4cm, left=2.8cm, right=2.4cm]{geometry}
 
 % --- 英文字体：TeX Gyre Pagella（Palatino 开源版）---
 \setmainfont{TeX Gyre Pagella}
@@ -52,6 +53,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage[table]{xcolor}
+\definecolor{tablehead}{HTML}{F2F5F8}
 \usepackage{gbt7714}
 \captionsetup{
     font=small,
@@ -72,6 +74,8 @@
 \setcounter{topnumber}{3}
 \setcounter{bottomnumber}{2}
 \setcounter{totalnumber}{4}
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{8pt}
 % 修复 unicode-math 环境下的 bm 报错：使用 symbfit 替代 bm
 \newcommand{\bm}[1]{\symbfit{#1}}
 \usepackage{enumitem}
@@ -83,7 +87,7 @@
     \fancyhf{}
     \renewcommand{\headrulewidth}{0pt}
     \renewcommand{\footrulewidth}{0pt}
-    \fancyfoot[R]{\color{gray}\zihao{-5}.\ \thepage\ .}
+    \fancyfoot[C]{\color{gray}\zihao{-5}\thepage}
 }
 
 \usepackage[hidelinks]{hyperref}
@@ -106,7 +110,14 @@
 \graphicspath{{figures/}}
 
 % --- 列表间距紧凑 ---
-\setlist{nosep, leftmargin=2em}
+\setlist{nosep, leftmargin=2em, itemsep=0.2em, topsep=0.3em}
+
+% --- 文档信息 ---
+\newcommand{\paperTitle}{代际友好视角下福州市社区养老服务供需错配识别与智能补位优化研究\\[0.3em]——基于多源 POI、人口栅格与图神经网络}
+\newcommand{\keywords}[1]{%
+    \par\vspace{0.8em}
+    \noindent{\heiti 关键词：}#1\par
+}
 
 
 \begin{document}
@@ -120,8 +131,37 @@
 \clearpage
 
 % ================================================================
+%                            摘要
+% ================================================================
+\begin{center}
+    {\zihao{2}\heiti \paperTitle\par}
+\end{center}
+
+\vspace{1em}
+
+\section*{摘要}
+
+简要写清楚四点：研究背景、数据来源、方法体系、主要结论。
+
+建议控制在 300—500 字。
+
+摘要结构可以是：
+
+第一句：说明老龄化和社区养老服务配置问题。
+第二句：说明研究对象是福州市主城区 500\,m $\times$ 500\,m 网格。
+第三句：说明使用人口、POI、交通、医疗、共享服务等多源数据。
+第四句：说明方法：代际共享修正 2SFCA、GraphSAGE、LightGBM-SHAP、MCLP。
+第五句：说明结果：识别错配区域、解释成因、提出补位方案。
+
+\keywords{社区养老；供需错配；代际友好；2SFCA；GraphSAGE；MCLP；福州市}
+
+\clearpage
+
+% ================================================================
 %                            目录
 % ================================================================
+\phantomsection
+\pdfbookmark[1]{目录}{toc}
 \begin{center}
     {\zihao{3}\heiti 目\quad 录}
 \end{center}
@@ -147,43 +187,21 @@
 \setcounter{page}{1}
 \pagestyle{plain}
 
-\begin{center}
-{\zihao{2}\heiti 代际友好视角下福州市社区养老服务供需错配识别与智能补位优化研究——基于多源 POI、人口栅格与图神经网络}
-\end{center}
-
-\section*{摘要}
-
-简要写清楚四点：研究背景、数据来源、方法体系、主要结论。
-
-建议控制在 300—500 字。
-
-摘要结构可以是：
-
-第一句：说明老龄化和社区养老服务配置问题。
-第二句：说明研究对象是福州市主城区 500m × 500m 网格。
-第三句：说明使用人口、POI、交通、医疗、共享服务等多源数据。
-第四句：说明方法：代际共享修正 2SFCA、GraphSAGE、LightGBM-SHAP、MCLP。
-第五句：说明结果：识别错配区域、解释成因、提出补位方案。
-
-\section*{关键词}
-
-社区养老；供需错配；代际友好；2SFCA；GraphSAGE；MCLP；福州市
-
 \section{引言}
 
-\subsection{1.1 研究背景}
+\subsection{研究背景}
 
-\subsubsection{1.1.1 人口老龄化与社区养老服务压力}
+\subsubsection{人口老龄化与社区养老服务压力}
 
 说明我国老龄化加深，养老服务需求从机构养老逐渐转向社区居家养老、助餐、医养结合和日常生活支持。
 
 这一节不要写太长，主要作用是引出问题。
 
-\subsubsection{1.1.2 福州市社区养老服务的现实基础}
+\subsubsection{福州市社区养老服务的现实基础}
 
 说明福州既有老城区老龄人口集聚，也有新区扩张和城乡养老资源差异。福州适合作为研究对象，因为既有养老服务设施，也有较强的智慧养老和社区服务建设基础。
 
-\subsubsection{1.1.3 从“设施覆盖”到“有效可达”的研究转向}
+\subsubsection{从“设施覆盖”到“有效可达”的研究转向}
 
 强调本文不是简单统计养老设施数量，而是研究老人是否能真正获得服务。
 这里可以提出核心判断：
@@ -192,39 +210,37 @@
 养老服务设施存在，不等于养老服务可达；设施覆盖率高，也不等于供需匹配。
 \end{quote}
 
----
 
-\subsection{1.2 研究问题}
+\subsection{研究问题}
 
-\subsubsection{1.2.1 福州市老年服务需求如何空间分布}
+\subsubsection{福州市老年服务需求如何空间分布}
 
 回答“老人在哪里”。
 
-\subsubsection{1.2.2 社区养老服务是否与老年需求匹配}
+\subsubsection{社区养老服务是否与老年需求匹配}
 
 回答“服务是否供给到真正需要的地方”。
 
-\subsubsection{1.2.3 代际共享服务能否缓解养老服务压力}
+\subsubsection{代际共享服务能否缓解养老服务压力}
 
 说明社区食堂、公园、图书馆、社区活动中心、体育空间、便民服务中心等设施虽然不是传统养老设施，但可以为老年群体提供助餐、休闲、社交和生活支持。你们前期材料已经把社区服务划分为银发服务、青年活力和代际共享服务三类，这里可以作为指标体系的来源。
 
-\subsubsection{1.2.4 有限资源下应优先补什么、补在哪里}
+\subsubsection{有限资源下应优先补什么、补在哪里}
 
 回答“补位优化”的问题。
 
----
 
-\subsection{1.3 研究思路与技术路线}
+\subsection{研究思路与技术路线}
 
-\subsubsection{1.3.1 总体研究思路}
+\subsubsection{总体研究思路}
 
 可以写成：
 
 \begin{quote}
-本文按照”需求识别—服务可达—错配诊断—成因解释—智能补位”的逻辑展开。
+本文按照“需求识别—服务可达—错配诊断—成因解释—智能补位”的逻辑展开。
 \end{quote}
 
-\subsubsection{1.3.2 技术路线设计}
+\subsubsection{技术路线设计}
 
 建议放一张技术路线图。
 
@@ -232,7 +248,7 @@
 
 数据采集 → 网格化处理 → 老年需求估计 → 代际共享修正 2SFCA → 供需错配识别 → GraphSAGE 风险识别 → LightGBM-SHAP 成因解释 → MCLP 服务补位优化。
 
-\subsubsection{1.3.3 研究创新}
+\subsubsection{研究创新}
 
 写三点即可。
 
@@ -242,16 +258,16 @@
 
 \section{数据来源与变量构建}
 
-\subsection{2.1 研究区域与空间单元}
+\subsection{研究区域与空间单元}
 
-\subsubsection{2.1.1 研究区域选择}
+\subsubsection{研究区域选择}
 
 研究对象建议设定为福州市主城区，包括鼓楼区、台江区、仓山区、晋安区、马尾区。
 如数据允许，可扩展至长乐区和闽侯县核心城镇片区。
 
-\subsubsection{2.1.2 空间网格划分}
+\subsubsection{空间网格划分}
 
-将研究区域划分为 500m × 500m 网格。
+将研究区域划分为 500\,m $\times$ 500\,m 网格。
 每个网格作为基本分析单元。
 
 说明为什么不用行政街道：
@@ -260,7 +276,7 @@
 街道尺度过粗，难以刻画社区服务半径；网格尺度更适合计算服务可达性和补位点位。
 \end{quote}
 
-\subsubsection{2.1.3 数据空间匹配}
+\subsubsection{数据空间匹配}
 
 将人口、养老设施、医疗设施、共享服务设施、交通设施全部匹配到网格中。
 
@@ -270,11 +286,10 @@
 对所有 POI 数据进行坐标统一、去重、分类和网格归属处理。
 \end{quote}
 
----
 
-\subsection{2.2 数据来源}
+\subsection{数据来源}
 
-\subsubsection{2.2.1 人口与社会经济数据}
+\subsubsection{人口与社会经济数据}
 
 包括：
 
@@ -284,7 +299,7 @@
 
 估计老年需求强度，作为模型控制变量。
 
-\subsubsection{2.2.2 养老服务设施数据}
+\subsubsection{养老服务设施数据}
 
 包括：
 
@@ -298,7 +313,7 @@
 
 构建养老服务供给能力。
 
-\subsubsection{2.2.3 医养协同服务数据}
+\subsubsection{医养协同服务数据}
 
 包括：
 
@@ -308,7 +323,7 @@
 
 衡量老年群体获得医疗和护理支持的能力。
 
-\subsubsection{2.2.4 代际共享服务数据}
+\subsubsection{代际共享服务数据}
 
 包括：
 
@@ -318,7 +333,7 @@
 
 衡量社区是否具有可同时服务老人和其他年龄群体的共享型服务环境。
 
-\subsubsection{2.2.5 空间交通数据}
+\subsubsection{空间交通数据}
 
 包括：
 
@@ -328,16 +343,17 @@
 
 计算养老服务可达性和服务圈覆盖。
 
----
 
-\subsection{2.3 指标体系设计}
+\subsection{指标体系设计}
 
-\subsection{2.3.1 老年需求指标}
+\subsubsection{老年需求指标}
 
 \begin{table}[H]
 \centering
+\caption{老年需求指标体系}
 \begin{tabular}{ll}
 \toprule
+\rowcolor{tablehead}
 指标 & 含义 \\
 \midrule
 老年人口密度 & 基础养老需求 \\
@@ -354,14 +370,15 @@
 
 这一组指标回答“哪里更需要养老服务”。
 
----
 
-\subsubsection{2.3.2 养老服务供给指标}
+\subsubsection{养老服务供给指标}
 
 \begin{table}[H]
 \centering
+\caption{养老服务供给指标体系}
 \begin{tabular}{ll}
 \toprule
+\rowcolor{tablehead}
 指标 & 含义 \\
 \midrule
 养老机构数量 & 机构养老供给 \\
@@ -378,14 +395,15 @@
 
 这一组指标回答“养老服务在哪里”。
 
----
 
-\subsubsection{2.3.3 医养协同指标}
+\subsubsection{医养协同指标}
 
 \begin{table}[H]
 \centering
+\caption{医养协同指标体系}
 \begin{tabular}{ll}
 \toprule
+\rowcolor{tablehead}
 指标 & 含义 \\
 \midrule
 医院密度 & 高等级医疗支持 \\
@@ -401,14 +419,15 @@
 
 这一组指标回答“养老服务是否具备医疗支撑”。
 
----
 
-\subsubsection{2.3.4 代际共享服务指标}
+\subsubsection{代际共享服务指标}
 
 \begin{table}[H]
 \centering
+\caption{代际共享服务指标体系}
 \begin{tabular}{ll}
 \toprule
+\rowcolor{tablehead}
 指标 & 含义 \\
 \midrule
 社区食堂 / 平价餐饮 & 助餐与日常消费 \\
@@ -426,28 +445,27 @@
 
 这一组指标回答“哪些服务能为养老压力提供间接缓冲”。
 
----
 
 \section{模型构建}
 
-\subsection{3.1 老年需求空间估计模型}
+\subsection{老年需求空间估计模型}
 
-\subsubsection{3.1.1 人口栅格下推思路}
+\subsubsection{人口栅格下推思路}
 
 由于网格尺度老年人口数据通常无法直接获得，本文采用区县老龄化比例、人口栅格和居住 POI 进行下推估计。
 
-\subsubsection{3.1.2 老年需求强度计算}
+\subsubsection{老年需求强度计算}
 
 设网格 $g$ 属于区县 $c$，其老年需求强度为：
 
 \[
-D_g = Pop_g \times r_c^{65+} \times W_g
+D_g = \operatorname{Pop}_g \times r_c^{65+} \times W_g
 \]
 
 
-其中，$Pop_g$ 是网格人口，$r_c^{65+}$ 是区县 65 岁及以上人口比例，$W_g$ 是居住修正权重。
+其中，$\operatorname{Pop}_g$ 是网格人口，$r_c^{65+}$ 是区县 65 岁及以上人口比例，$W_g$ 是居住修正权重。
 
-\subsubsection{3.1.3 居住修正权重设定}
+\subsubsection{居住修正权重设定}
 
 居住修正权重由住宅小区密度、老旧小区密度和建成区强度构成。
 
@@ -455,11 +473,10 @@ D_g = Pop_g \times r_c^{65+} \times W_g
 
 这一节不需要展开过深，重点是说明需求估计不是简单平均分配，而是考虑居住空间差异。
 
----
 
-\subsection{3.2 养老服务有效供给测度}
+\subsection{养老服务有效供给测度}
 
-\subsubsection{3.2.1 服务设施分类赋权}
+\subsubsection{服务设施分类赋权}
 
 将养老服务设施划分为机构养老、社区照护、助餐服务、医养协同和代际共享五类。
 
@@ -467,8 +484,10 @@ D_g = Pop_g \times r_c^{65+} \times W_g
 
 \begin{table}[H]
 \centering
+\caption{养老服务类型与权重含义}
 \begin{tabular}{ll}
 \toprule
+\rowcolor{tablehead}
 服务类型 & 权重含义 \\
 \midrule
 养老机构 & 机构照护能力强 \\
@@ -481,7 +500,7 @@ D_g = Pop_g \times r_c^{65+} \times W_g
 \end{tabular}
 \end{table}
 
-\subsubsection{3.2.2 服务供给指数计算}
+\subsubsection{服务供给指数计算}
 
 构建网格服务供给指数：
 
@@ -492,7 +511,7 @@ S_g = \sum_{k=1}^{m} w_k X_{gk}
 
 其中，$X_{gk}$ 是网格 $g$ 中第 $k$ 类服务指标，$w_k$ 是对应权重。
 
-\subsubsection{3.2.3 指标标准化处理}
+\subsubsection{指标标准化处理}
 
 所有指标统一进行极差标准化或 Z-score 标准化，避免不同量纲影响结果。
 
@@ -500,11 +519,10 @@ S_g = \sum_{k=1}^{m} w_k X_{gk}
 
 这里不要把 CRITIC-TOPSIS 写太重。供给指数只是为 2SFCA 提供输入，主角不是综合评价。
 
----
 
-\subsection{3.3 代际共享修正 2SFCA 可达性模型}
+\subsection{代际共享修正 2SFCA 可达性模型}
 
-\subsubsection{3.3.1 服务点供需比计算}
+\subsubsection{服务点供需比计算}
 
 对每个服务点 $j$，计算其服务范围内的供需比：
 
@@ -515,7 +533,7 @@ R_j = \frac{S_j}{\sum_{g \in d_{gj} \leq d_0} D_g f(d_{gj})}
 
 其中，$S_j$ 是服务点有效供给能力，$D_g$ 是网格需求，$d_{gj}$ 是网格到服务点的出行时间。
 
-\subsubsection{3.3.2 网格服务可达性计算}
+\subsubsection{网格服务可达性计算}
 
 对每个网格 $g$，计算其可获得的养老服务水平：
 
@@ -526,7 +544,7 @@ A_g = \sum_{j \in d_{gj} \leq d_0} R_j f(d_{gj})
 
 其中，$A_g$ 越大，说明养老服务可达性越好。
 
-\subsubsection{3.3.3 距离衰减函数设定}
+\subsubsection{距离衰减函数设定}
 
 采用高斯距离衰减：
 
@@ -540,16 +558,16 @@ f(d)=e^{-(d/\beta)^2}
 距离越远，服务可获得性越低。
 这比简单 15 分钟圈更合理。
 
-\subsubsection{3.3.4 代际共享服务修正}
+\subsubsection{代际共享服务修正}
 
 构建共享服务支撑项：
 
 \[
-A_g^{*}=A_g+\alpha Shared_g
+A_g^{*}=A_g+\alpha \operatorname{Shared}_g
 \]
 
 
-其中，$Shared_g$ 表示网格代际共享服务水平，$\alpha$ 表示共享服务对养老可达性的缓冲系数。
+其中，$\operatorname{Shared}_g$ 表示网格代际共享服务水平，$\alpha$ 表示共享服务对养老可达性的缓冲系数。
 
 建议正文设：
 
@@ -570,29 +588,30 @@ A_g^{*}=A_g+\alpha Shared_g
 这是你们论文的第一个亮点。
 它体现了社区养老不是孤立的养老设施问题，而是与社区共享服务体系有关。
 
----
 
-\subsection{3.4 供需错配指数构建}
+\subsection{供需错配指数构建}
 
-\subsubsection{3.4.1 基础错配指数}
+\subsubsection{基础错配指数}
 
 构建：
 
 \[
-Mismatch_g = Z(D_g) - Z(A_g^{*})
+\operatorname{Mismatch}_g = Z(D_g) - Z(A_g^{*})
 \]
 
 
 其中，$Z(D_g)$ 是标准化需求，$Z(A_g^{*})$ 是修正后可达性。
 
-\subsubsection{3.4.2 错配程度分级}
+\subsubsection{错配程度分级}
 
-将 $Mismatch_g$ 按分位数划分为：
+将 $\operatorname{Mismatch}_g$ 按分位数划分为：
 
 \begin{table}[H]
 \centering
+\caption{错配程度分级标准}
 \begin{tabular}{ll}
 \toprule
+\rowcolor{tablehead}
 分位 & 等级 \\
 \midrule
 前 20\% & 高错配 \\
@@ -602,14 +621,16 @@ Mismatch_g = Z(D_g) - Z(A_g^{*})
 \end{tabular}
 \end{table}
 
-\subsubsection{3.4.3 供需错配四象限}
+\subsubsection{供需错配四象限}
 
 根据需求强度和可达性将网格划分为：
 
 \begin{table}[H]
 \centering
+\caption{供需错配四象限类型}
 \begin{tabular}{ll}
 \toprule
+\rowcolor{tablehead}
 类型 & 含义 \\
 \midrule
 高需求—高供给 & 基本匹配区 \\
@@ -624,35 +645,36 @@ Mismatch_g = Z(D_g) - Z(A_g^{*})
 
 这一节直接服务后面的政策建议。
 
----
 
-\subsection{3.5 GraphSAGE 空间错配识别模型}
+\subsection{GraphSAGE 空间错配识别模型}
 
-\subsubsection{3.5.1 空间图构建}
+\subsubsection{空间图构建}
 
-将 500m 网格视为节点，若两个网格空间相邻，则建立边。
+将 500\,m 网格视为节点，若两个网格空间相邻，则建立边。
 
 节点特征包括：
 
-* 老年需求强度；
-* 养老服务可达性；
-* 医养协同水平；
-* 代际共享服务水平；
-* 交通可达性；
-* 社区活力指标。
+\begin{itemize}
+\item 老年需求强度；
+\item 养老服务可达性；
+\item 医养协同水平；
+\item 代际共享服务水平；
+\item 交通可达性；
+\item 社区活力指标。
+\end{itemize}
 
-\subsubsection{3.5.2 高错配风险标签构造}
+\subsubsection{高错配风险标签构造}
 
-根据 $Mismatch_g$ 的分位数将网格划分为高、中、低错配风险。
+根据 $\operatorname{Mismatch}_g$ 的分位数将网格划分为高、中、低错配风险。
 
 GraphSAGE 的任务是预测网格错配风险等级。
 
-\subsubsection{3.5.3 模型聚合思想}
+\subsubsection{模型聚合思想}
 
 GraphSAGE 通过聚合邻近网格的特征来更新节点表示：
 
 \[
-h_v^k = \sigma \left(W^k \cdot CONCAT(h_v^{k-1}, AGG({h_u^{k-1},u \in N(v)}))\right)
+h_v^k = \sigma \left(W^k \cdot \operatorname{CONCAT}\left(h_v^{k-1}, \operatorname{AGG}\{h_u^{k-1}\mid u \in N(v)\}\right)\right)
 \]
 
 
@@ -665,77 +687,83 @@ h_v^k = \sigma \left(W^k \cdot CONCAT(h_v^{k-1}, AGG({h_u^{k-1},u \in N(v)}))\ri
 GraphSAGE 用于识别考虑邻近社区资源共享后的高错配风险区域。
 \end{quote}
 
-\subsubsection{3.5.4 模型输出}
+\subsubsection{模型输出}
 
 输出：
 
-* 高错配风险概率；
-* 高风险网格空间分布；
-* 与传统错配指数的对比结果。
+\begin{itemize}
+\item 高错配风险概率；
+\item 高风险网格空间分布；
+\item 与传统错配指数的对比结果。
+\end{itemize}
 
----
 
-\subsection{3.6 LightGBM-SHAP 成因解释模型}
+\subsection{LightGBM-SHAP 成因解释模型}
 
-\subsubsection{3.6.1 被解释变量}
+\subsubsection{被解释变量}
 
 被解释变量为：
 
 \[
-Mismatch_g
+\operatorname{Mismatch}_g
 \]
 
 
 或高错配风险等级。
 
-\subsubsection{3.6.2 解释变量}
+\subsubsection{解释变量}
 
 包括：
 
-* 老年人口密度；
-* 高龄人口密度；
-* 长者食堂密度；
-* 养老服务站密度；
-* 医疗设施密度；
-* 公共交通可达性；
-* 代际共享服务密度；
-* 道路密度；
-* 社区活力指标。
+\begin{itemize}
+\item 老年人口密度；
+\item 高龄人口密度；
+\item 长者食堂密度；
+\item 养老服务站密度；
+\item 医疗设施密度；
+\item 公共交通可达性；
+\item 代际共享服务密度；
+\item 道路密度；
+\item 社区活力指标。
+\end{itemize}
 
-\subsubsection{3.6.3 LightGBM 建模}
+\subsubsection{LightGBM 建模}
 
 使用 LightGBM 拟合非线性关系，识别影响错配的关键变量。
 
-\subsubsection{3.6.4 SHAP 解释}
+\subsubsection{SHAP 解释}
 
 利用 SHAP 输出变量贡献。
 
 重点分析：
 
-* 哪些变量推高错配；
-* 哪些变量缓解错配；
-* 不同区域的主要短板是否不同。
+\begin{itemize}
+\item 哪些变量推高错配；
+\item 哪些变量缓解错配；
+\item 不同区域的主要短板是否不同。
+\end{itemize}
 
 说明：
 
 这一节主要靠 SHAP 图说话，文字不宜过长。
 
----
 
-\subsection{3.7 MCLP 服务补位优化模型}
+\subsection{MCLP 服务补位优化模型}
 
-\subsubsection{3.7.1 候选补位点设定}
+\subsubsection{候选补位点设定}
 
 候选点包括：
 
-* 社区服务中心；
-* 居委会；
-* 社区卫生服务中心；
-* 现有养老服务站；
-* 长者食堂周边；
-* 高错配网格中心。
+\begin{itemize}
+\item 社区服务中心；
+\item 居委会；
+\item 社区卫生服务中心；
+\item 现有养老服务站；
+\item 长者食堂周边；
+\item 高错配网格中心。
+\end{itemize}
 
-\subsubsection{3.7.2 最大覆盖目标函数}
+\subsubsection{最大覆盖目标函数}
 
 目标是在有限新增点位下覆盖最多高需求老人：
 
@@ -758,14 +786,16 @@ y_g \leq \sum_{j \in N_g}x_j
 
 其中，$x_j=1$ 表示在候选点 $j$ 新建或升级服务点，$y_g=1$ 表示网格 $g$ 被覆盖。
 
-\subsubsection{3.7.3 政策情景设定}
+\subsubsection{政策情景设定}
 
 设置三种情景：
 
 \begin{table}[H]
 \centering
+\caption{MCLP 政策情景设定}
 \begin{tabular}{ll}
 \toprule
+\rowcolor{tablehead}
 情景 & 新增 / 升级点位 \\
 \midrule
 保守情景 & 10 个 \\
@@ -775,71 +805,70 @@ y_g \leq \sum_{j \in N_g}x_j
 \end{tabular}
 \end{table}
 
-\subsubsection{3.7.4 优化效果评价}
+\subsubsection{优化效果评价}
 
 评价指标包括：
 
-* 高需求老人覆盖率；
-* 平均可达时间；
-* 高错配网格数量；
-* 服务公平性变化。
+\begin{itemize}
+\item 高需求老人覆盖率；
+\item 平均可达时间；
+\item 高错配网格数量；
+\item 服务公平性变化。
+\end{itemize}
 
 说明：
 
 MCLP 是你们论文的落地模型。
 它负责回答“补哪里”。
 
----
 
 \section{实证结果分析}
 
-\subsection{4.1 福州市老年需求空间分布}
+\subsection{福州市老年需求空间分布}
 
-\subsubsection{4.1.1 老年需求强度整体格局}
+\subsubsection{老年需求强度整体格局}
 
 展示老年需求地图。
 
 说明哪些区域老年需求较高。
 
-\subsubsection{4.1.2 高龄照护需求分布}
+\subsubsection{高龄照护需求分布}
 
 展示高龄需求或护理需求分布。
 
 重点分析是否存在高龄老人集聚片区。
 
-\subsubsection{4.1.3 老年需求热点区识别}
+\subsubsection{老年需求热点区识别}
 
 列出需求强度排名前若干网格或街道。
 
----
 
-\subsection{4.2 社区养老服务供给格局}
+\subsection{社区养老服务供给格局}
 
-\subsubsection{4.2.1 养老服务设施空间分布}
+\subsubsection{养老服务设施空间分布}
 
 展示养老机构、长者食堂、日间照料中心、养老服务站的整体分布。
 
-\subsubsection{4.2.2 医养协同服务分布}
+\subsubsection{医养协同服务分布}
 
 展示医院、社区卫生服务中心、药店、康复机构等分布。
 
-\subsubsection{4.2.3 代际共享服务分布}
+\subsubsection{代际共享服务分布}
 
 展示公园、社区食堂、公共交通、文化体育空间等分布。
 
----
 
-\subsection{4.3 养老服务可达性测度结果}
+\subsection{养老服务可达性测度结果}
 
-\subsubsection{4.3.1 15 分钟社区养老服务可达性}
+\subsubsection{15 分钟社区养老服务可达性}
 
 展示长者食堂、养老服务站等近距离服务可达性。
 
-\subsubsection{4.3.2 30 分钟照护服务可达性}
+\subsubsection{30 分钟照护服务可达性}
 
 展示日间照料中心、社区照护设施可达性。
 
-\subsubsection{4.3.3 代际共享修正前后对比}
+\subsubsection{代际共享修正前后对比}
 
 展示修正前后的可达性差异。
 
@@ -847,33 +876,31 @@ MCLP 是你们论文的落地模型。
 
 这一节要突出你们的创新：共享服务确实会改变部分区域的服务评价。
 
----
 
-\subsection{4.4 供需错配识别结果}
+\subsection{供需错配识别结果}
 
-\subsubsection{4.4.1 错配指数空间分布}
+\subsubsection{错配指数空间分布}
 
-展示 $Mismatch_g$ 地图。
+展示 $\operatorname{Mismatch}_g$ 地图。
 
 说明高错配区集中在哪里。
 
-\subsubsection{4.4.2 四象限分类结果}
+\subsubsection{四象限分类结果}
 
 展示高需求—低供给、高需求—高供给等四类区域。
 
-\subsubsection{4.4.3 优先补位区识别}
+\subsubsection{优先补位区识别}
 
 列出高需求—低供给区域，并说明其主要短板。
 
----
 
-\subsection{4.5 GraphSAGE 高错配风险识别结果}
+\subsection{GraphSAGE 高错配风险识别结果}
 
-\subsubsection{4.5.1 模型识别结果}
+\subsubsection{模型识别结果}
 
 展示 GraphSAGE 输出的高风险网格图。
 
-\subsubsection{4.5.2 与传统错配指数对比}
+\subsubsection{与传统错配指数对比}
 
 比较 GraphSAGE 与基础错配指数结果是否一致。
 
@@ -881,72 +908,76 @@ MCLP 是你们论文的落地模型。
 
 GraphSAGE 能够识别部分受邻近区域影响的潜在风险网格。
 
-\subsubsection{4.5.3 高风险区域特征分析}
+\subsubsection{高风险区域特征分析}
 
 总结高风险区域通常具有哪些特征，例如：
 
-* 老年需求高；
-* 养老服务弱；
-* 医疗协同不足；
-* 公共交通不便；
-* 共享服务支撑不足。
+\begin{itemize}
+\item 老年需求高；
+\item 养老服务弱；
+\item 医疗协同不足；
+\item 公共交通不便；
+\item 共享服务支撑不足。
+\end{itemize}
 
----
 
-\subsection{4.6 LightGBM-SHAP 成因解释结果}
+\subsection{LightGBM-SHAP 成因解释结果}
 
-\subsubsection{4.6.1 模型拟合效果}
+\subsubsection{模型拟合效果}
 
 简要说明模型精度。
 
 不要占太多篇幅。
 
-\subsubsection{4.6.2 全局特征重要性}
+\subsubsection{全局特征重要性}
 
 展示 SHAP 特征重要性图。
 
 说明哪些变量最影响错配。
 
-\subsubsection{4.6.3 不同短板类型的成因差异}
+\subsubsection{不同短板类型的成因差异}
 
 分析不同区域的主要短板：
 
-* 助餐不足型；
-* 医养协同不足型；
-* 交通可达性不足型；
-* 共享服务不足型；
-* 综合服务不足型。
+\begin{itemize}
+\item 助餐不足型；
+\item 医养协同不足型；
+\item 交通可达性不足型；
+\item 共享服务不足型；
+\item 综合服务不足型。
+\end{itemize}
 
----
 
-\subsection{4.7 MCLP 服务补位优化结果}
+\subsection{MCLP 服务补位优化结果}
 
-\subsubsection{4.7.1 新增 10 个服务点情景}
+\subsubsection{新增 10 个服务点情景}
 
 展示保守情景下补位点位图。
 
 说明覆盖了哪些高需求区域。
 
-\subsubsection{4.7.2 新增 20 个服务点情景}
+\subsubsection{新增 20 个服务点情景}
 
 展示中等情景下补位点位图。
 
 说明覆盖效果提升。
 
-\subsubsection{4.7.3 新增 30 个服务点情景}
+\subsubsection{新增 30 个服务点情景}
 
 展示积极情景下补位点位图。
 
 说明边际收益是否下降。
 
-\subsubsection{4.7.4 补位前后效果对比}
+\subsubsection{补位前后效果对比}
 
 放一张表：
 
 \begin{table}[H]
 \centering
+\caption{补位前后效果对比指标}
 \begin{tabular}{lllll}
 \toprule
+\rowcolor{tablehead}
 指标 & 补位前 & 新增 10 个 & 新增 20 个 & 新增 30 个 \\
 \midrule
 覆盖老年人口 &  &  &  &  \\
@@ -957,27 +988,26 @@ GraphSAGE 能够识别部分受邻近区域影响的潜在风险网格。
 \end{tabular}
 \end{table}
 
----
 
 \section{稳健性检验与讨论}
 
-\subsection{5.1 服务半径敏感性检验}
+\subsection{服务半径敏感性检验}
 
-\subsubsection{5.1.1 15 分钟阈值调整}
+\subsubsection{15 分钟阈值调整}
 
 将长者食堂和社区服务站阈值调整为 10 分钟、20 分钟。
 
-\subsubsection{5.1.2 30 分钟阈值调整}
+\subsubsection{30 分钟阈值调整}
 
 将日间照料服务阈值调整为 20 分钟、40 分钟。
 
-\subsubsection{5.1.3 结果稳定性分析}
+\subsubsection{结果稳定性分析}
 
 说明高错配区域是否保持稳定。
 
-\subsection{5.2 代际共享修正系数敏感性检验}
+\subsection{代际共享修正系数敏感性检验}
 
-\subsubsection{5.2.1 不同 $\alpha$ 取值设定}
+\subsubsection{不同 $\alpha$ 取值设定}
 
 检验：
 
@@ -986,183 +1016,174 @@ GraphSAGE 能够识别部分受邻近区域影响的潜在风险网格。
 \]
 
 
-\subsubsection{5.2.2 高错配区域变化}
+\subsubsection{高错配区域变化}
 
 比较不同 $\alpha$ 下的高错配网格是否变化明显。
 
-\subsubsection{5.2.3 稳健性结论}
+\subsubsection{稳健性结论}
 
 若主要高错配区域基本一致，说明模型稳定。
 
----
 
-\subsection{5.3 模型对比检验}
+\subsection{模型对比检验}
 
-\subsubsection{5.3.1 LightGBM 与传统模型对比}
+\subsubsection{LightGBM 与传统模型对比}
 
 可与随机森林、逻辑回归或 XGBoost 简单对比。
 
-\subsubsection{5.3.2 GraphSAGE 与非图模型对比}
+\subsubsection{GraphSAGE 与非图模型对比}
 
 说明加入空间邻接信息后，识别效果是否提升。
 
-\subsubsection{5.3.3 检验结论}
+\subsubsection{检验结论}
 
 这一节不需要长篇，只需说明主结论稳健。
 
 \section{政策建议}
 
-\subsection{6.1 高龄照护缺口区：补护理型服务}
+\subsection{高龄照护缺口区：补护理型服务}
 
-\subsubsection{6.1.1 区域特征}
+\subsubsection{区域特征}
 
 高龄人口密度高，医疗和护理服务不足。
 
-\subsubsection{6.1.2 补位方向}
+\subsubsection{补位方向}
 
 新增护理型社区养老服务点、长护险定点服务、社区康复和上门护理。
 
-\subsubsection{6.1.3 实施建议}
+\subsubsection{实施建议}
 
 优先依托社区卫生服务中心和现有养老服务站升级。
 
----
 
-\subsection{6.2 助餐服务不足区：补长者食堂和社区食堂}
+\subsection{助餐服务不足区：补长者食堂和社区食堂}
 
-\subsubsection{6.2.1 区域特征}
+\subsubsection{区域特征}
 
 老年需求高，但长者食堂和助餐点不足。
 
-\subsubsection{6.2.2 补位方向}
+\subsubsection{补位方向}
 
 新增长者食堂、社区食堂、移动助餐和配送服务。
 
-\subsubsection{6.2.3 实施建议}
+\subsubsection{实施建议}
 
 优先布局在老旧小区和高需求网格周边。
 
----
 
-\subsection{6.3 居家照料不足区：补日间照料中心和养老服务站}
+\subsection{居家照料不足区：补日间照料中心和养老服务站}
 
-\subsubsection{6.3.1 区域特征}
+\subsubsection{区域特征}
 
 机构养老不一定缺，但社区居家服务弱。
 
-\subsubsection{6.3.2 补位方向}
+\subsubsection{补位方向}
 
 新增日间照料中心、社区养老服务站、助浴助洁助医服务。
 
-\subsubsection{6.3.3 实施建议}
+\subsubsection{实施建议}
 
 推动服务站向综合照护站升级。
 
----
 
-\subsection{6.4 代际共享服务短板区：补复合型公共服务空间}
+\subsection{代际共享服务短板区：补复合型公共服务空间}
 
-\subsubsection{6.4.1 区域特征}
+\subsubsection{区域特征}
 
 养老服务需求高，同时缺少公园、体育空间、图书馆、社区活动中心等共享服务。
 
-\subsubsection{6.4.2 补位方向}
+\subsubsection{补位方向}
 
 补充社区食堂、公共活动空间、文体设施和便民服务中心。
 
-\subsubsection{6.4.3 实施建议}
+\subsubsection{实施建议}
 
 推动“一站多用”的复合型社区服务空间建设。
 
----
 
-\subsection{6.5 供给冗余区：推动存量设施转型}
+\subsection{供给冗余区：推动存量设施转型}
 
-\subsubsection{6.5.1 区域特征}
+\subsubsection{区域特征}
 
 服务供给较多，但老年需求相对不足。
 
-\subsubsection{6.5.2 优化方向}
+\subsubsection{优化方向}
 
 控制新增设施，提升服务质量，推动存量设施向助餐、康复、文体和上门服务转型。
 
-\subsubsection{6.5.3 实施建议}
+\subsubsection{实施建议}
 
 避免重复建设，提高现有设施利用率。
 
----
 
 \section{结论与不足}
 
-\subsection{7.1 主要研究结论}
+\subsection{主要研究结论}
 
-\subsubsection{7.1.1 福州市社区养老服务存在空间差异}
+\subsubsection{福州市社区养老服务存在空间差异}
 
 总结老年需求和养老服务供给的空间分布差异。
 
-\subsubsection{7.1.2 高需求低供给区域具有明显识别价值}
+\subsubsection{高需求低供给区域具有明显识别价值}
 
 总结哪些类型区域需要优先补位。
 
-\subsubsection{7.1.3 代际共享服务能够部分缓解养老服务压力}
+\subsubsection{代际共享服务能够部分缓解养老服务压力}
 
 总结共享服务修正后的变化。
 
-\subsubsection{7.1.4 MCLP 能为服务点布局提供量化依据}
+\subsubsection{MCLP 能为服务点布局提供量化依据}
 
 总结新增 10、20、30 个点位的优化效果。
 
----
 
-\subsection{7.2 研究贡献}
+\subsection{研究贡献}
 
-\subsubsection{7.2.1 方法贡献}
+\subsubsection{方法贡献}
 
 提出代际共享修正的养老服务可达性测度方法。
 
-\subsubsection{7.2.2 实践贡献}
+\subsubsection{实践贡献}
 
 为福州市社区养老服务补位提供可执行方案。
 
-\subsubsection{7.2.3 政策贡献}
+\subsubsection{政策贡献}
 
 为代际友好型社区建设提供量化依据。
 
----
 
-\subsection{7.3 研究不足}
+\subsection{研究不足}
 
-\subsubsection{7.3.1 老年人口网格估计存在误差}
+\subsubsection{老年人口网格估计存在误差}
 
 由于缺少社区级真实老年人口，只能通过人口栅格和区县比例估计。
 
-\subsubsection{7.3.2 部分服务设施容量数据可能缺失}
+\subsubsection{部分服务设施容量数据可能缺失}
 
 如床位数、收费标准、服务人数等字段不完整。
 
-\subsubsection{7.3.3 模型结果仍需结合实地调研验证}
+\subsubsection{模型结果仍需结合实地调研验证}
 
 补位点位应结合土地、财政、社区意愿和实际运营条件进一步评估。
 
----
 
 \section{附录建议}
 
 如果篇幅允许，可以把以下内容放附录：
 
-\subsection{8.1 POI 分类规则表}
+\subsection{POI 分类规则表}
 
 列出养老服务、医养协同、代际共享服务、社区活力 POI 的关键词和分类方式。
 
-\subsection{8.2 变量标准化方法}
+\subsection{变量标准化方法}
 
 说明极差标准化或 Z-score 标准化公式。
 
-\subsection{8.3 GraphSAGE 模型参数}
+\subsection{GraphSAGE 模型参数}
 
 列出隐藏层维度、学习率、训练轮数、邻居采样数等。
 
-\subsection{8.4 MCLP 候选点清单}
+\subsection{MCLP 候选点清单}
 
 列出候选点来源和筛选规则。
 
@@ -1170,8 +1191,10 @@ GraphSAGE 能够识别部分受邻近区域影响的潜在风险网格。
 
 \begin{table}[H]
 \centering
+\caption{建议最终页数分配}
 \begin{tabular}{ll}
 \toprule
+\rowcolor{tablehead}
 部分 & 页数 \\
 \midrule
 摘要 & 0.5 \\
@@ -1187,14 +1210,13 @@ GraphSAGE 能够识别部分受邻近区域影响的潜在风险网格。
 \end{tabular}
 \end{table}
 
----
 
 \section*{最终主线压缩版}
 
 整篇论文的主线可以概括为：
 
 \begin{quote}
-本文以福州市主城区 500m × 500m 网格为研究单元，基于人口、养老服务、医疗服务、代际共享服务和交通网络等多源数据，首先估计老年服务需求强度；其次构建代际共享修正的 2SFCA 模型测算养老服务可达性，并识别供需错配区域；随后引入 GraphSAGE 模型识别空间关联下的高错配风险网格，使用 LightGBM-SHAP 解释错配成因；最后基于 MCLP 最大覆盖模型提出有限资源约束下的服务补位方案，为福州市社区养老服务优化布局和代际友好型社区建设提供量化依据。
+本文以福州市主城区 500\,m $\times$ 500\,m 网格为研究单元，基于人口、养老服务、医疗服务、代际共享服务和交通网络等多源数据，首先估计老年服务需求强度；其次构建代际共享修正的 2SFCA 模型测算养老服务可达性，并识别供需错配区域；随后引入 GraphSAGE 模型识别空间关联下的高错配风险网格，使用 LightGBM-SHAP 解释错配成因；最后基于 MCLP 最大覆盖模型提出有限资源约束下的服务补位方案，为福州市社区养老服务优化布局和代际友好型社区建设提供量化依据。
 \end{quote}
 
 这个框架可以直接作为你们论文目录的基础。
