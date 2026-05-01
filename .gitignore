@@ -1,0 +1,10 @@
+# LaTeX 编译产物
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.pdf
+
+# VS Code
+.vscode/
