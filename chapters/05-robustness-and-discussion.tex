@@ -1,0 +1,51 @@
+\section{稳健性检验与讨论}
+
+\subsection{服务半径敏感性检验}
+
+\subsubsection{15 分钟阈值调整}
+
+将长者食堂和社区服务站阈值调整为 10 分钟、20 分钟。
+
+\subsubsection{30 分钟阈值调整}
+
+将日间照料服务阈值调整为 20 分钟、40 分钟。
+
+\subsubsection{结果稳定性分析}
+
+说明高错配区域是否保持稳定。
+
+\subsection{代际共享修正系数敏感性检验}
+
+\subsubsection{不同 $\alpha$ 取值设定}
+
+检验：
+
+
+\begin{equation}
+\alpha = 0.1,\ 0.2,\ 0.3
+\end{equation}
+
+
+
+\subsubsection{高错配区域变化}
+
+比较不同 $\alpha$ 下的高错配网格是否变化明显。
+
+\subsubsection{稳健性结论}
+
+若主要高错配区域基本一致，说明模型稳定。
+
+
+\subsection{模型对比检验}
+
+\subsubsection{LightGBM 与传统模型对比}
+
+可与随机森林、逻辑回归或 XGBoost 简单对比。
+
+\subsubsection{GraphSAGE 与非图模型对比}
+
+说明加入空间邻接信息后，识别效果是否提升。
+
+\subsubsection{检验结论}
+
+这一节不需要长篇，只需说明主结论稳健。

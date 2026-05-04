@@ -1,0 +1,165 @@
+\section{实证结果分析}
+
+\subsection{福州市老年需求空间分布}
+
+\subsubsection{老年需求强度整体格局}
+
+展示老年需求地图。
+
+说明哪些区域老年需求较高。
+
+\subsubsection{高龄照护需求分布}
+
+展示高龄需求或护理需求分布。
+
+重点分析是否存在高龄老人集聚片区。
+
+\subsubsection{老年需求热点区识别}
+
+列出需求强度排名前若干网格或街道。
+
+
+\subsection{社区养老服务供给格局}
+
+\subsubsection{养老服务设施空间分布}
+
+展示养老机构、长者食堂、日间照料中心、养老服务站的整体分布。
+
+\subsubsection{医养协同服务分布}
+
+展示医院、社区卫生服务中心、药店、康复机构等分布。
+
+\subsubsection{代际共享服务分布}
+
+展示公园、社区食堂、公共交通、文化体育空间等分布。
+
+
+\subsection{养老服务可达性测度结果}
+
+\subsubsection{15 分钟社区养老服务可达性}
+
+展示长者食堂、养老服务站等近距离服务可达性。
+
+\subsubsection{30 分钟照护服务可达性}
+
+展示日间照料中心、社区照护设施可达性。
+
+\subsubsection{代际共享修正前后对比}
+
+展示修正前后的可达性差异。
+
+说明：
+
+这一节要突出你们的创新：共享服务确实会改变部分区域的服务评价。
+
+
+\subsection{供需错配识别结果}
+
+\subsubsection{错配指数空间分布}
+
+展示 $\operatorname{Mismatch}_g$ 地图。
+
+说明高错配区集中在哪里。
+
+\subsubsection{四象限分类结果}
+
+展示高需求—低供给、高需求—高供给等四类区域。
+
+\subsubsection{优先补位区识别}
+
+列出高需求—低供给区域，并说明其主要短板。
+
+
+\subsection{GraphSAGE 高错配风险识别结果}
+
+\subsubsection{模型识别结果}
+
+展示 GraphSAGE 输出的高风险网格图。
+
+\subsubsection{与传统错配指数对比}
+
+比较 GraphSAGE 与基础错配指数结果是否一致。
+
+重点说明：
+
+GraphSAGE 能够识别部分受邻近区域影响的潜在风险网格。
+
+\subsubsection{高风险区域特征分析}
+
+总结高风险区域通常具有哪些特征，例如：
+
+\begin{itemize}
+\item 老年需求高；
+\item 养老服务弱；
+\item 医疗协同不足；
+\item 公共交通不便；
+\item 共享服务支撑不足。
+\end{itemize}
+
+
+\subsection{LightGBM-SHAP 成因解释结果}
+
+\subsubsection{模型拟合效果}
+
+简要说明模型精度。
+
+不要占太多篇幅。
+
+\subsubsection{全局特征重要性}
+
+展示 SHAP 特征重要性图。
+
+说明哪些变量最影响错配。
+
+\subsubsection{不同短板类型的成因差异}
+
+分析不同区域的主要短板：
+
+\begin{itemize}
+\item 助餐不足型；
+\item 医养协同不足型；
+\item 交通可达性不足型；
+\item 共享服务不足型；
+\item 综合服务不足型。
+\end{itemize}
+
+
+\subsection{MCLP 服务补位优化结果}
+
+\subsubsection{新增 10 个服务点情景}
+
+展示保守情景下补位点位图。
+
+说明覆盖了哪些高需求区域。
+
+\subsubsection{新增 20 个服务点情景}
+
+展示中等情景下补位点位图。
+
+说明覆盖效果提升。
+
+\subsubsection{新增 30 个服务点情景}
+
+展示积极情景下补位点位图。
+
+说明边际收益是否下降。
+
+\subsubsection{补位前后效果对比}
+
+放一张表：
+
+\begin{table}[H]
+\centering
+\caption{补位前后效果对比指标}
+\begin{tabular}{ccccc}
+\toprule
+\rowcolor{tablehead}
+指标 & 补位前 & 新增 10 个 & 新增 20 个 & 新增 30 个 \\
+\midrule
+覆盖老年人口 &  &  &  &  \\
+平均可达时间 &  &  &  &  \\
+高错配网格数量 &  &  &  &  \\
+服务公平性指数 &  &  &  &  \\
+\bottomrule
+\end{tabular}
+\end{table}
