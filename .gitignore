@@ -1,7 +1,13 @@
 # LaTeX 编译产物
 *.aux
+*.bbl
+*.bcf
+*.blg
+*.lof
 *.log
+*.lot
 *.out
+*.run.xml
 *.toc
 *.synctex.gz
 *.pdf

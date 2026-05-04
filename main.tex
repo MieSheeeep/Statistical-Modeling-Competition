@@ -1,265 +1,479 @@
 % !TEX program = xelatex
-\documentclass[12pt, a4paper]{article}
+\documentclass[UTF8,zihao=-4,a4paper,fontset=none]{ctexart}
 
-% --- 字体与中文支持 ---
-\usepackage[UTF8, heading=true]{ctex}
-\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{\setmainfont{TeX Gyre Termes}}
-\IfFontExistsTF{Arial}{\setsansfont{Arial}}{\setsansfont{TeX Gyre Heros}}
-\IfFontExistsTF{Courier New}{\setmonofont{Courier New}}{\setmonofont{TeX Gyre Cursor}}
-\IfFontExistsTF{SimSun}{\setCJKmainfont[AutoFakeBold=2.2]{SimSun}}{\setCJKmainfont[AutoFakeBold=2.2]{FandolSong-Regular}}
-\IfFontExistsTF{SimSun}{\setCJKfamilyfont{zhsong}[AutoFakeBold=2.2]{SimSun}}{\setCJKfamilyfont{zhsong}[AutoFakeBold=2.2]{FandolSong-Regular}}
-\IfFontExistsTF{SimHei}{\setCJKfamilyfont{hei}[AutoFakeBold=2.2]{SimHei}}{\setCJKfamilyfont{hei}[AutoFakeBold=2.2]{FandolHei-Regular}}
-\IfFontExistsTF{KaiTi}{\setCJKfamilyfont{kai}[AutoFakeBold=2.2]{KaiTi}}{\setCJKfamilyfont{kai}[AutoFakeBold=2.2]{FandolKai-Regular}}
-\IfFontExistsTF{FZXiaoBiaoSong-B05S}{%
-    \setCJKfamilyfont{xbs}{FZXiaoBiaoSong-B05S}%
+% ================================================================
+% 页面设置：A4；Word 默认页边距，上下2.54cm，左右3.17cm
+% ================================================================
+\usepackage[a4paper,top=2.54cm,bottom=2.54cm,left=3.17cm,right=3.17cm]{geometry}
+
+% ================================================================
+% 字体设置：调用 Overleaf 同级目录下上传的字体文件
+% ================================================================
+\def\FontPath{./}
+
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\defaultfontfeatures{Ligatures=TeX}
+
+\setmainfont{TeX Gyre Termes}
+
+% 正文宋体：优先使用同级目录下的方正字体；缺失时回退到系统/Fandol 字体
+\IfFileExists{\FontPath 方正书宋简体.TTF}{%
+    \setCJKmainfont[
+        Path=\FontPath,
+        AutoFakeBold=2
+    ]{方正书宋简体.TTF}
+    \setCJKfamilyfont{song}[
+        Path=\FontPath,
+        AutoFakeBold=2
+    ]{方正书宋简体.TTF}
 }{%
-    \IfFontExistsTF{FZXiaoBiaoSong-Z05S}{%
-        \setCJKfamilyfont{xbs}{FZXiaoBiaoSong-Z05S}%
+    \IfFontExistsTF{SimSun}{%
+        \setCJKmainfont[AutoFakeBold=2]{SimSun}
+        \setCJKfamilyfont{song}[AutoFakeBold=2]{SimSun}
     }{%
-        \setCJKfamilyfont{xbs}[AutoFakeBold=2.2]{SimSun}%
+        \setCJKmainfont[AutoFakeBold=2]{FandolSong-Regular}
+        \setCJKfamilyfont{song}[AutoFakeBold=2]{FandolSong-Regular}
     }%
 }
-\newcommand{\xiaobiaosong}{\CJKfamily{xbs}}
-\newcommand{\thesistitlefont}{\xiaobiaosong\fontsize{16bp}{24bp}\selectfont}
-\newcommand{\fronttitlefont}{\heiti\fontsize{14bp}{24bp}\selectfont}
-\newcommand{\sectiontitlefont}{\heiti\fontsize{15bp}{24bp}\selectfont}
-\newcommand{\subsectiontitlefont}{\kaishu\fontsize{14bp}{24bp}\selectfont}
-\newcommand{\subsubsectiontitlefont}{\songti\bfseries\fontsize{12bp}{24bp}\selectfont}
-\newcommand{\paragraphtitlefont}{\songti\fontsize{12bp}{24bp}\selectfont}
 
-% --- 页面设置：A4，Word 默认页边距 ---
-\usepackage[a4paper, top=2.54cm, bottom=2.54cm, left=3.17cm, right=3.17cm]{geometry}
-
-% --- 行距与段落间距 ---
-\usepackage{setspace}
-\makeatletter
-\renewcommand\normalsize{%
-    \@setfontsize\normalsize{12bp}{24bp}%
-    \abovedisplayskip 6bp plus 2bp minus 2bp%
-    \belowdisplayskip 6bp plus 2bp minus 2bp%
-    \abovedisplayshortskip 0bp plus 2bp%
-    \belowdisplayshortskip 6bp plus 2bp minus 2bp%
+\IfFileExists{\FontPath 方正黑体简体.TTF}{%
+    \setCJKfamilyfont{hei}[
+        Path=\FontPath,
+        AutoFakeBold=2
+    ]{方正黑体简体.TTF}
+}{%
+    \IfFontExistsTF{SimHei}{%
+        \setCJKfamilyfont{hei}[AutoFakeBold=2]{SimHei}
+    }{%
+        \setCJKfamilyfont{hei}[AutoFakeBold=2]{FandolHei-Regular}
+    }%
 }
-\makeatother
-\normalsize
-\setlength{\parskip}{0pt}
-\setlength{\parindent}{2em}
-\AtBeginDocument{\songti\normalsize}
 
-% --- 标题层级：一、（一）1. ① ---
-\newcommand{\circledsectionnum}[1]{\textcircled{\scriptsize #1}}
-\setcounter{secnumdepth}{4}
+\IfFileExists{\FontPath 方正楷体简体.TTF}{%
+    \setCJKfamilyfont{kai}[
+        Path=\FontPath,
+        AutoFakeBold=2
+    ]{方正楷体简体.TTF}
+}{%
+    \IfFontExistsTF{KaiTi}{%
+        \setCJKfamilyfont{kai}[AutoFakeBold=2]{KaiTi}
+    }{%
+        \setCJKfamilyfont{kai}[AutoFakeBold=2]{FandolKai-Regular}
+    }%
+}
+
+\IfFileExists{\FontPath 仿宋_GB2312.ttf}{%
+    \setCJKfamilyfont{fs}[
+        Path=\FontPath,
+        AutoFakeBold=2
+    ]{仿宋_GB2312.ttf}
+}{%
+    \IfFontExistsTF{FangSong}{%
+        \setCJKfamilyfont{fs}[AutoFakeBold=2]{FangSong}
+    }{%
+        \setCJKfamilyfont{fs}[AutoFakeBold=2]{SimSun}
+    }%
+}
+
+% 方正小标宋简体：用于封面大标题、论文题目
+\IfFileExists{\FontPath 方正小标宋简体.ttf}{%
+    \newCJKfontfamily\xiaobiaosong[
+        Path=\FontPath,
+        AutoFakeBold=2
+    ]{方正小标宋简体.ttf}
+}{%
+    \IfFontExistsTF{FZXiaoBiaoSong-B05S}{%
+        \newCJKfontfamily\xiaobiaosong[AutoFakeBold=2]{FZXiaoBiaoSong-B05S}
+    }{%
+        \IfFontExistsTF{FZXiaoBiaoSong-Z05S}{%
+            \newCJKfontfamily\xiaobiaosong[AutoFakeBold=2]{FZXiaoBiaoSong-Z05S}
+        }{%
+            \newCJKfontfamily\xiaobiaosong[AutoFakeBold=2]{SimSun}
+        }%
+    }%
+}
+
+\newcommand{\FZsong}{\CJKfamily{song}}
+\newcommand{\FZhei}{\CJKfamily{hei}}
+\newcommand{\FZkai}{\CJKfamily{kai}}
+\newcommand{\FZfang}{\CJKfamily{fs}}
+
+% ================================================================
+% 正文行距与段落：宋体小四，固定值24磅，段前段后0行，首行缩进2字符
+% ================================================================
+\usepackage{setspace}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0pt}
+
+\newcommand{\maintextformat}{%
+    \FZsong\zihao{-4}\setlength{\baselineskip}{24pt}\selectfont
+}
+
+% ================================================================
+% 标题层级：一、；（一）；1.；①
+% ================================================================
+\newcommand{\circlednum}[1]{%
+    \ifcase#1
+    \or ①
+    \or ②
+    \or ③
+    \or ④
+    \or ⑤
+    \or ⑥
+    \or ⑦
+    \or ⑧
+    \or ⑨
+    \or ⑩
+    \else #1
+    \fi
+}
+
+\renewcommand{\theparagraph}{\circlednum{\value{paragraph}}}
+
 \ctexset{
     section = {
         name = {},
         number = \chinese{section}、,
-        aftername = {},
-        format = \sectiontitlefont,
-        indent = 0pt,
-        beforeskip = 18bp,
-        afterskip = 6bp,
+        format = \FZhei\zihao{-3}\setlength{\baselineskip}{24pt}\selectfont,
+        beforeskip = 0pt,
+        afterskip = 0pt,
+        aftername = {}
     },
     subsection = {
         name = {（,）},
         number = \chinese{subsection},
-        aftername = {},
-        format = \subsectiontitlefont,
-        indent = 0pt,
-        beforeskip = 12bp,
-        afterskip = 4bp,
+        format = \FZkai\zihao{4}\setlength{\baselineskip}{24pt}\selectfont,
+        indent = 1em,
+        beforeskip = 0pt,
+        afterskip = 0pt,
+        aftername = {}
     },
     subsubsection = {
         name = {},
         number = \arabic{subsubsection}.,
-        aftername = {\quad},
-        format = \subsubsectiontitlefont,
-        indent = 0pt,
-        beforeskip = 6bp,
+        format = \FZsong\bfseries\zihao{-4}\setlength{\baselineskip}{24pt}\selectfont,
+        indent = 2em,
+        beforeskip = 0pt,
         afterskip = 0pt,
+        aftername = {\quad}
     },
     paragraph = {
         name = {},
-        number = \circledsectionnum{\arabic{paragraph}},
-        aftername = {\quad},
-        format = \paragraphtitlefont,
-        indent = 0pt,
+        number = \theparagraph,
+        format = \FZsong\zihao{-4}\setlength{\baselineskip}{24pt}\selectfont,
         beforeskip = 0pt,
         afterskip = 0pt,
+        aftername = {}
     }
 }
 
-% --- 图表与数学公式宏包 ---
-\usepackage{amsmath}
+% ================================================================
+% 数学公式：可编辑、居中，公式编号右对齐，格式为（1）
+% ================================================================
+\usepackage{amsmath,amssymb}
 \usepackage{unicode-math}
-\setmathfont{TeX Gyre Pagella Math}
+\setmathfont{Latin Modern Math}
+\newcommand{\bm}[1]{\symbfit{#1}}
+\renewcommand{\theequation}{\arabic{equation}}
+
+% ================================================================
+% 图表与浮动体
+% ================================================================
 \usepackage{graphicx}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,calc,positioning,fit}
-\usepackage{booktabs}
-\usepackage{threeparttable}
-\usepackage{multirow}
-\usepackage{float}
+\usepackage{booktabs,threeparttable,multirow,float,array}
 \usepackage[section]{placeins}
-\usepackage{caption}
-\usepackage{subcaption}
 \usepackage[table]{xcolor}
-\usepackage{etoolbox}
 \definecolor{tablehead}{HTML}{F2F5F8}
-\usepackage{gbt7714}
-\DeclareCaptionFont{songxiaosi}{\songti\fontsize{12bp}{24bp}\selectfont}
-\DeclareCaptionLabelFormat{zhlabel}{#1#2}
-\DeclareCaptionLabelSeparator{twospace}{\quad\quad}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{etoolbox}
+
+\DeclareCaptionLabelFormat{cnlabel}{#1#2}
+\DeclareCaptionLabelSeparator{twospace}{\quad}
+\DeclareCaptionFont{songxiaosi}{%
+    \FZsong\zihao{-4}\setlength{\baselineskip}{24pt}\selectfont
+}
+
 \captionsetup{
-    font=songxiaosi,
-    labelfont=songxiaosi,
-    textfont=songxiaosi,
+    labelformat=cnlabel,
+    labelsep=twospace,
     justification=centering,
     singlelinecheck=false,
-    labelformat=zhlabel,
-    labelsep=twospace
+    font=songxiaosi
 }
-\captionsetup[table]{position=top}
+
+\captionsetup[table]{name=表,position=top}
+\AtBeginEnvironment{figure}{\captionsetup{name=图,position=bottom}}
+
 \renewcommand{\thetable}{\arabic{table}}
 \renewcommand{\thefigure}{\arabic{figure}}
-\renewcommand{\theequation}{\arabic{equation}}
+
+\renewcommand{\arraystretch}{1.0}
+\setlength{\tabcolsep}{6pt}
+
+\AtBeginEnvironment{tabular}{%
+    \FZsong\zihao{5}\setlength{\baselineskip}{12pt}\selectfont
+}
+
 \setlength{\floatsep}{8pt plus 2pt minus 2pt}
 \setlength{\textfloatsep}{10pt plus 2pt minus 3pt}
 \setlength{\intextsep}{8pt plus 2pt minus 2pt}
 \setlength{\abovecaptionskip}{5pt}
 \setlength{\belowcaptionskip}{0pt}
-\renewcommand{\topfraction}{0.9}
-\renewcommand{\bottomfraction}{0.8}
-\renewcommand{\textfraction}{0.08}
-\renewcommand{\floatpagefraction}{0.8}
-\setcounter{topnumber}{3}
-\setcounter{bottomnumber}{2}
-\setcounter{totalnumber}{4}
-\renewcommand{\arraystretch}{1}
-\setlength{\tabcolsep}{8pt}
-\AtBeginEnvironment{table}{\centering\singlespacing\songti\zihao{-4}}
-\AtBeginEnvironment{tabular}{\centering\singlespacing\songti\zihao{-4}}
-% 修复 unicode-math 环境下的 bm 报错：使用 symbfit 替代 bm
-\newcommand{\bm}[1]{\symbfit{#1}}
-\usepackage{enumitem}
-\usepackage{pdfpages} % 增加pdf插入支持
 
-% --- 目录与超链接 ---
+% ================================================================
+% 列表
+% ================================================================
+\usepackage{enumitem}
+\setlist{
+    nosep,
+    leftmargin=2em,
+    itemsep=0pt,
+    topsep=0pt,
+    parsep=0pt,
+    partopsep=0pt
+}
+
+% ================================================================
+% 目录与超链接：目录引用至正文第二级标题
+% ================================================================
+\usepackage[hidelinks]{hyperref}
+\usepackage{tocloft}
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{2}
+
+\renewcommand{\contentsname}{目\quad 录}
+\renewcommand{\cfttoctitlefont}{%
+    \hfill\FZhei\zihao{4}\setlength{\baselineskip}{24pt}\selectfont
+}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\setlength{\cftbeforetoctitleskip}{0pt}
+\setlength{\cftaftertoctitleskip}{0pt}
+
+\renewcommand{\cftsecfont}{\FZsong\zihao{-4}\setlength{\baselineskip}{24pt}\selectfont}
+\renewcommand{\cftsubsecfont}{\FZsong\zihao{-4}\setlength{\baselineskip}{24pt}\selectfont}
+\renewcommand{\cftsubsubsecfont}{\FZsong\zihao{-4}\setlength{\baselineskip}{24pt}\selectfont}
+
+\renewcommand{\cftsecpagefont}{\FZsong\zihao{-4}}
+\renewcommand{\cftsubsecpagefont}{\FZsong\zihao{-4}}
+\renewcommand{\cftsubsubsecpagefont}{\FZsong\zihao{-4}}
+
+\setlength{\cftsecnumwidth}{2.8em}
+\setlength{\cftsubsecindent}{2.4em}
+\setlength{\cftsubsecnumwidth}{3.8em}
+\setlength{\cftsubsubsecnumwidth}{3.2em}
+
+\setlength{\cftbeforesecskip}{0pt}
+\setlength{\cftbeforesubsecskip}{0pt}
+\setlength{\cftbeforesubsubsecskip}{0pt}
+
+\makeatletter
+\newcommand{\centeredtableofcontents}{%
+    \phantomsection
+    \pdfbookmark[1]{目录}{toc}
+    \begin{center}
+        {\FZhei\zihao{4}\setlength{\baselineskip}{24pt}\selectfont 目\quad 录\par}
+    \end{center}
+    \vspace{0.2em}
+    {\FZsong\zihao{-4}\setlength{\baselineskip}{24pt}\selectfont
+    \begingroup
+    \setlength{\parskip}{0pt}
+    \setlength{\parindent}{0pt}
+    \let\oldcontentsline\contentsline
+    \renewcommand{\contentsline}[4]{%
+        \ifstrequal{##1}{subsection}{%
+            \oldcontentsline{##1}{\hspace*{2.2em}##2}{##3}{##4}%
+        }{%
+            \oldcontentsline{##1}{##2}{##3}{##4}%
+        }%
+    }
+    \@starttoc{toc}
+    \endgroup}
+}
+\makeatother
+
+% ================================================================
+% 表格与插图清单：同一页标题，依次列出表、图
+% ================================================================
+\makeatletter
+\newcommand{\listoftablesandfigures}{%
+    \clearpage
+    \phantomsection
+    \begin{center}
+        {\FZhei\zihao{4}\setlength{\baselineskip}{24pt}\selectfont 表格与插图清单\par}
+    \end{center}
+    \vspace{0pt}
+    {\FZsong\zihao{-4}\setlength{\baselineskip}{24pt}\selectfont
+    \begingroup
+    \let\oldnumberline\numberline
+    \renewcommand{\numberline}[1]{表##1\quad}
+    \@starttoc{lot}
+    \renewcommand{\numberline}[1]{图##1\quad}
+    \@starttoc{lof}
+    \endgroup}
+}
+\makeatother
+
+% ================================================================
+% 页眉页脚：正文页码从正文第一页开始
+% ================================================================
 \usepackage{fancyhdr}
 \fancypagestyle{plain}{
     \fancyhf{}
     \renewcommand{\headrulewidth}{0pt}
     \renewcommand{\footrulewidth}{0pt}
-    \fancyfoot[C]{\color{gray}\zihao{-5}\thepage}
+    \fancyfoot[C]{\FZsong\zihao{-5}\thepage}
 }
 
-\usepackage[hidelinks]{hyperref}
-\usepackage{tocloft}
-\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
-\setlength{\cftsecnumwidth}{2.5em}
-\setlength{\cftsubsecnumwidth}{3.2em}
-\setlength{\cftsubsubsecnumwidth}{4em}
-\setlength{\cftbeforesecskip}{0pt}
-\setlength{\cftbeforesubsecskip}{0pt}
-\setlength{\cftbeforesubsubsecskip}{0pt}
-\renewcommand{\cftsecfont}{\songti\normalsize}
-\renewcommand{\cftsubsecfont}{\songti\normalsize}
-\renewcommand{\cftsubsubsecfont}{\songti\normalsize}
-\renewcommand{\cftsecpagefont}{\normalsize}
-\renewcommand{\cftsubsecpagefont}{\normalsize}
-\renewcommand{\cftsubsubsecpagefont}{\normalsize}
-
-% --- 前置部分与参考文献标题 ---
-\newcommand{\frontmattertitle}[1]{%
-    \begin{center}
-        {\fronttitlefont #1\par}
-    \end{center}
-}
-\renewcommand{\refname}{参考文献}
-\AtBeginEnvironment{thebibliography}{\songti\zihao{-4}}
-\makeatletter
-\patchcmd{\thebibliography}{\section*{\refname}}{\frontmattertitle{\refname}}{}{}
-\makeatother
-
-% --- 图片路径 ---
+% ================================================================
+% 图片路径
+% ================================================================
 \graphicspath{{figures/}}
 
-% --- 列表间距紧凑 ---
-\setlist{nosep, leftmargin=2em, itemsep=0.2em, topsep=0.3em}
-
-% --- 文档信息 ---
+% ================================================================
+% 论文基本信息
+% 除封面、致谢外，不得出现学校、队员、指导教师信息
+% ================================================================
+\newcommand{\workID}{TJJM20260000000}
+\newcommand{\schoolName}{福州大学}
 \newcommand{\paperTitle}{代际友好视角下福州市社区养老服务供需错配识别与智能补位优化研究\\[0.3em]——基于多源 POI、人口栅格与图神经网络}
+\newcommand{\paperTitlePlain}{代际友好视角下福州市社区养老服务供需错配识别与智能补位优化研究——基于多源 POI、人口栅格与图神经网络}
+\newcommand{\teamMembers}{蔡明润\quad 王智洋\quad 杨孙源}
+\newcommand{\advisorName}{XXX}
+
 \newcommand{\keywords}[1]{%
-    \par\vspace{0.8em}
-    \noindent{\heiti\fontsize{12bp}{24bp}\selectfont 关键词：}{\songti\fontsize{12bp}{24bp}\selectfont #1}\par
+    \par
+    \noindent{\FZhei\zihao{-4} 关键词：}{\FZsong\zihao{-4}#1}
+    \par
 }
 
+% ================================================================
+% 封面信息栏：贴着文字的下划线
+% ================================================================
+\newlength{\coverlabelwidth}
+\newlength{\covervaluewidth}
+\setlength{\coverlabelwidth}{3.2cm}
+\setlength{\covervaluewidth}{9.8cm}
+
+% 单行字段：学校、队员、指导老师
+\newcommand{\coverfield}[2]{%
+    \noindent
+    \makebox[\coverlabelwidth][r]{%
+        {\FZfang\zihao{-2}\setlength{\baselineskip}{24pt}\selectfont #1：}%
+    }%
+    \hspace{0.45cm}%
+    {\FZfang\zihao{-2}\setlength{\baselineskip}{24pt}\selectfont
+    \underline{\makebox[\covervaluewidth][c]{#2}}}%
+    \par\vspace{0.82cm}%
+}
+
+% 多行字段：论文题目
+\newcommand{\covertitlefield}{%
+    \noindent
+    \makebox[\coverlabelwidth][r]{%
+        {\FZfang\zihao{-2}\setlength{\baselineskip}{24pt}\selectfont 论文题目：}%
+    }%
+    \hspace{0.45cm}%
+    \begin{minipage}[t]{\covervaluewidth}
+        \centering
+        {\FZfang\zihao{-2}\setlength{\baselineskip}{32pt}\selectfont
+        \underline{\makebox[\covervaluewidth][c]{代际友好视角下福州市社区养老服务}}\par
+        \underline{\makebox[\covervaluewidth][c]{供需错配识别与智能补位优化研究}}\par
+        \underline{\makebox[\covervaluewidth][c]{——基于多源 POI、人口栅格与图神经网络}}\par}
+    \end{minipage}
+    \par\vspace{0.82cm}%
+}
 
 \begin{document}
+\maintextformat
 \pagestyle{empty}
 \pagenumbering{gobble}
 
 % ================================================================
-%                            封面
+% 封面页：严格按封面示例；仅封面可出现学校、参赛队员、指导教师信息
 % ================================================================
-%\includepdf[pages=1]{0.pdf}
+\begin{titlepage}
+    \maintextformat
+    \thispagestyle{empty}
+
+    % 作品编号：黑体三号，位于右上
+    \begin{flushright}
+        {\FZhei\zihao{3}\setlength{\baselineskip}{24pt}\selectfont 作品编号：\workID\par}
+    \end{flushright}
+
+    \vspace{1.65cm}
+
+    % 大赛名称与参赛作品：方正小标宋简体一号，固定45磅
+    \begin{center}
+        {\xiaobiaosong\zihao{1}\setlength{\baselineskip}{45pt}\selectfont
+        2026年（第十二届）全国大学生\par
+        统计建模大赛\par
+        参\quad 赛\quad 作\quad 品\par}
+        \vspace{0.55cm}
+        \rule{10.6cm}{0.6pt}
+    \end{center}
+
+    \vfill
+
+    % 封面信息：仿宋_GB2312 小二号，文字贴着下划线
+    \begin{center}
+    \begin{minipage}{13.8cm}
+        \coverfield{参赛学校}{\schoolName}
+        \covertitlefield
+        \coverfield{参赛队员}{\teamMembers}
+        \coverfield{指导老师}{\advisorName}
+    \end{minipage}
+    \end{center}
+
+    \vspace{1.1cm}
+
+\end{titlepage}
 \clearpage
 
 % ================================================================
-%                            摘要
+% 摘要与关键词
 % ================================================================
 \begin{center}
-    {\thesistitlefont \paperTitle\par}
+    {\xiaobiaosong\zihao{3}\setlength{\baselineskip}{24pt}\selectfont \paperTitle\par}
 \end{center}
 
-\vspace{1em}
+\begin{center}
+    {\FZhei\zihao{4}\setlength{\baselineskip}{24pt}\selectfont 摘要\par}
+\end{center}
 
-\frontmattertitle{摘要}
+本文面向人口老龄化背景下社区养老服务配置不均衡的问题，以福州市主城区为研究对象，旨在识别社区养老服务供给与老年需求之间的空间错配，并提出有限资源约束下的服务补位方案。研究基于人口栅格、养老服务设施、医疗设施、代际共享服务设施、道路交通与公共服务 POI 等多源数据，构建 500\,m $\times$ 500\,m 网格化分析单元；在方法上，首先估计老年服务需求强度，其次构建代际共享修正的 2SFCA 模型测算养老服务可达性，再利用 GraphSAGE 识别空间关联下的高错配风险网格，并结合 LightGBM-SHAP 解释错配成因，最后采用 MCLP 最大覆盖模型进行服务补位优化。结果部分应根据实证结果填写高错配区域、主要影响因素和补位效果。研究创新在于将代际共享服务纳入社区养老可达性修正框架，并把错配识别、机器学习解释和设施布局优化连接起来，为福州市代际友好型社区建设和社区养老服务精准配置提供量化依据。
 
-简要写清楚四点：研究背景、数据来源、方法体系、主要结论。
-
-建议控制在 300—500 字。
-
-摘要结构可以是：
-
-第一句：说明老龄化和社区养老服务配置问题。
-第二句：说明研究对象是福州市主城区 500\,m $\times$ 500\,m 网格。
-第三句：说明使用人口、POI、交通、医疗、共享服务等多源数据。
-第四句：说明方法：代际共享修正 2SFCA、GraphSAGE、LightGBM-SHAP、MCLP。
-第五句：说明结果：识别错配区域、解释成因、提出补位方案。
-
-\keywords{社区养老；供需错配；代际友好；2SFCA；GraphSAGE；MCLP；福州市}
+\keywords{社区养老；供需错配；代际友好；可达性；福州市}
 
 \clearpage
 
 % ================================================================
-%                            目录
+% 章节目录：引用至正文第二级标题
 % ================================================================
-\phantomsection
-\pdfbookmark[1]{目录}{toc}
-\frontmattertitle{目\quad 录}
-\vspace{0.2em}
-
-\setcounter{tocdepth}{2}
-\makeatletter
-\begingroup
-\setlength{\parskip}{0pt}
-\setlength{\parindent}{0pt}
-\songti\normalsize
-\begin{spacing}{1}
-\@starttoc{toc}%
-\end{spacing}
-\endgroup
-\makeatother
-
+\centeredtableofcontents
 \clearpage
 
 % ================================================================
-%                            正文
+% 表格与插图清单
+% ================================================================
+\listoftablesandfigures
+\clearpage
+
+% ================================================================
+% 正文：正文第一页开始编页码
 % ================================================================
 \pagenumbering{arabic}
 \setcounter{page}{1}
 \pagestyle{plain}
+\maintextformat
 
+\begin{center}
+    {\xiaobiaosong\zihao{3}\setlength{\baselineskip}{24pt}\selectfont \paperTitle\par}
+\end{center}
 \input{chapters/01-introduction}
 \input{chapters/02-data-and-variables}
 \input{chapters/03-models}
@@ -267,8 +481,8 @@
 \input{chapters/05-robustness-and-discussion}
 \input{chapters/06-policy-suggestions}
 \input{chapters/07-conclusion-and-limitations}
-\input{chapters/08-appendix-suggestions}
-\input{chapters/09-page-allocation}
-\input{chapters/10-final-outline}
+\input{chapters/08-references}
+\input{chapters/09-appendix}
+\input{chapters/10-acknowledgements}
 
 \end{document}
